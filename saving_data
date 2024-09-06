@@ -1,0 +1,35 @@
+# Saving data 
+
+# before you save, think:
+# what do i want to do with this in future?
+# WHERE am i saving it?
+
+getwd()
+# i want to....
+
+# open in some other program/ on the cmd line at some point
+
+write.table(pgc.scz.full.2012-04_maf_info",row.names=F,col.names=T,quote=F,sep="\t")
+
+# never open outside of R
+
+save(dat_chroms,file="pgc.scz.full.2012-04_maf_info_byChrom.RData")
+
+# nb 'save' can save multiple items into one RData file
+
+note_for_later<-"hello"
+
+save(dat_chroms,note_for_later,file="pgc.scz.full.2012-04_maf_info_byChrom_extra.RData")
+
+
+
+
+# reloading things we saved
+
+rm(list=ls())
+load("pgc.scz.full.2012-04_maf_info_byChrom.RData")
+ls()
+
+rm(list=ls())
+load("pgc.scz.full.2012-04_maf_info_byChrom_extra.RData")
+ls()
