@@ -1,0 +1,85 @@
+# Data cleaning exercise
+
+
+# filtering on p val, maf etc
+
+min(dat$CEUaf)
+
+# reserve the allele freq for comparison
+
+af_check<-dat$CEUaf
+
+# solution 1 - change data type 
+
+dat$CEUaf_fix<-as.numeric(dat$CEUaf)
+
+head(dat)
+head(af_check)
+
+min(dat$CEUaf_fix)
+min(dat$CEUaf_fix,na.rm=T)
+  
+# whole-dataset involving solution - replace every "." with an NA
+
+is.na(dat) <-dat=="."
+
+min(dat$CEUaf)
+
+summary(dat$CEUaf)
+
+# filter by MAF and info
+length(which(dat$info>=0.9))
+length(dat$info >= 0.9)
+summary(dat$CEUaf_fix)
+
+# need to make a MINOR allele freq column
+
+dat$MAF<-dat$CEUaf_fix
+dat$MAF[which(dat$CEUaf_fix>0.5)]<- 1 - dat$MAF[which(dat$CEUaf_fix>0.5)]
+
+summary(dat$MAF)
+
+# removing missing data 
+dat_na_fix<-na.omit(dat)
+dat_maf_info<-dat_na_fix[dat_na_fix$info>=0.9 & dat_na_fix$MAF>0.01,]
+
+dim(dat)
+dim(dat_na_fix)
+dim(dat_maf_info)
+
+# removing columns i dont care about any more
+dat$CEUaf<-NULL
+dat[,"CEUaf_fix"]<-NULL
+
+dat$extra<-NA
+
+dat<-dat[,-12]
+
+
+# split by chromosome
+dat_chroms<-list()
+dat_chroms[[1]]<-dat_maf_info[hg18chr==1,]
+dat_chroms[[2]]<-dat_maf_info[hg18chr==2,]
+dat_chroms[[3]]<-dat_maf_info[hg18chr==3,]
+# ...and so on
+
+# split function
+dat_chroms<-split(dat_maf_info,dat_maf_info$hg18chr)
+str(dat_chroms)
+str(dat_chroms[[1]])
+head(dat_chroms[[1]])
+
+# transpose
+dat_subset<-dat[snpid %in% snps,]
+str(dat_subset)
+
+dat_transpose<-t(dat_subset)
+
+head(dat_transpose)
+
+
+# - why can't I get a useful min value from the CEUaf column as-is?
+# - what does the period represent in the CEUaf column?
+# - what is in the dat_chrom object? 
+# - how are new columns added to an existing data frame?
+# - what would be one way to remove a column i know the name of, but the index position might vary without my knowledge?
