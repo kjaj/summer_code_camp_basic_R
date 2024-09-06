@@ -1,0 +1,70 @@
+# Manipulating data frames
+
+# - negation operators (! and -)
+# - other operators (< > == %in%)
+# - attach
+# - na.omit
+# - split
+# - transposing
+# - adding new columns
+
+# clean up the extra dataframes
+ls()
+which(ls()=="dat")
+-which(ls()=="dat")
+ls()[-which(ls()=="dat")]
+
+rm(list=ls()[-which(ls()=="dat")])
+
+ls()
+# 
+head(dat)
+colnames(dat)
+str(dat)
+summary(dat)
+
+
+which(dat$pval < 5*10^-8)
+
+dat[which(dat$pval < 5*10^-8),]
+dat[-which(dat$pval < 5*10^-8),]
+
+# without a which statement
+
+
+dat[dat$pval<5*10^-8,]
+
+# using attach -> signpost to R, what the columns youre talking about are
+# means you don't need to use $ and name the entire df every time 
+
+dat[pval<5*10^-8,]
+
+attach(dat)
+
+dat[pval<5*10^-8,]
+
+# - why can't I just use the column name by itself before i use 'attach'?
+# - what does the 'which' statement return?
+
+
+# using %in%
+# make a random sample of SNPs
+snps<-sample(dat$snpid)[1:100]
+
+snps
+
+dat$snpid %in% snps
+snpid %in% snps
+
+str(snpid %in% snps)
+
+dat_subset<-dat[snpid %in% snps,]
+str(dat_subset)
+
+dat_subset<-dat[!snpid %in% snps,]
+str(dat_subset)
+
+
+# - what is the snps object?
+# - when i ask if snpid column vals are %in% snps, what is the output?
+# - what happens when you try to use negation operator '-' with the output from an %in% query ? 
