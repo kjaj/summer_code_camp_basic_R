@@ -1,0 +1,48 @@
+# Subsetting data frames
+
+# - square brackets [row index, column index]
+# - double sq brackets
+# - $ operator
+# - which statements
+
+dat
+dat[1,2]
+dat[1:2,]
+
+# double sq brackets return the vector that makes up the Nth column
+
+dat[[1]]
+dat[[2]]
+
+# single brackets return something that looks similar, but is still 'encased' in being a data frame
+
+dat[1]
+
+str(dat[1])
+str(dat[[1]])
+
+# $ operator - subset data frame when you know the column names
+
+dat$x
+
+# $ operator and sq brackets - subset to give an element in the column
+
+dat$x[1]
+
+# sq brackets and naming the column directly 
+
+dat[,"x"]
+dat[,"y"]
+
+# sq brackets, $ operator, and setting a condition
+
+dat[which(dat$y=="three"),]
+
+# subsetting lists
+
+# double sq brackets allow us to access the 'bare' item stored in the list
+# single brackets allow access to a 'range', but if used for list will not return what we are looking for 
+
+str(dat_list)
+str(dat_list[1])
+str(dat_list[[1]])
