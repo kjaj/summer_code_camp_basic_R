@@ -1,0 +1,32 @@
+is.numeric(1)
+is.integer(1)
+is.integer(1L)
+is.numeric(1.5)
+is.integer(1.5)
+
+# characters are strings - words (but can also represent numbers: "5")
+
+is.character("Hello")
+is.character("5")
+is.character(TRUE)
+is.character("TRUE")
+
+# factors - categorical variables with known set of values (levels)
+
+is.factor(1)
+is.factor("Hello")
+
+logical - TRUE/FALSE
+
+1>3
+is.logical(1>3)
+
+# you can convert between data types in most cases, but the behaviour of this varies - always check youve done what you intended ESPECIALLY when converting factors to numeric
+
+f <- factor(sample(runif(5), 20, replace = TRUE))
+f
+as.numeric(f)
+# needs special handling 
+as.numeric(as.character(f))
+# slightly faster option
+as.numeric(levels(f))[f]
