@@ -1,0 +1,97 @@
+# Structures of objects (things you store data in) in R
+
+# increasing order of complexity
+# - vectors
+# - matrices
+# - data frames, data tables, tibbles
+# - lists
+
+# vectors - concatenation (collection) of elements of the same TYPE
+
+x <- c(1,2,3,4,5)
+y <- c("one","two","three","four","five")
+z <- 10
+
+x1<-c(1,"a","b","c")
+
+# looking at them again
+
+x 
+
+y
+
+z
+
+x1
+
+# or
+
+print(x)
+print(y)
+print(z)
+
+# what TYPE of data in each vector
+
+class(x)
+
+class(y)
+
+class(z)
+
+str(x)
+str(y)
+str(z)
+
+
+# - what happens when you try to make a vector mixing data types?
+
+# matrices - a special case of a vector, with 2 dimensions 
+# nb - do NOT have to be SQUARE
+
+# empty matrix
+mat<-matrix()
+mat
+
+mat<-matrix(nrow=5,ncol=5)
+mat
+
+# matrix with values 
+mat<-matrix(1:25,nrow=5,ncol=5)
+
+# see how it's filled 
+
+mat
+
+class(mat)
+str(mat)
+
+# data frames
+# more general than matrices - data of different types can be stored in the same tabular array
+# made up of vectors of the same length 
+
+dat<-data.frame()
+
+dat<-data.frame(cbind(x,y))
+dat
+class(dat)
+str(dat)
+
+# i can change a matrix into a data.frame, since a df is a special case of a matrix 
+
+dat2<-data.frame(mat)
+str(dat2)
+dat2
+
+# - how would you go about making an empty 2 x 5 data frame ?
+
+
+# lists
+# here we can store collections of objects that are different data TYPES and LENGTHS/ SIZES
+
+dat_list<-list()
+dat_list[[1]]<-dat
+dat_list[[2]]<-mat
+
+dat_list
+class(dat_list)
+str(dat_list)
