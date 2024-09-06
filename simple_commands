@@ -1,0 +1,15 @@
+1:10
+seq(1,10)
+sum(1:10)
+seq(1,10, by=2)
+rep(5,10)
+1+3
+1*3
+12/3
+1>3
+1==2/2
+
+print("Hello World")
+
+paste("yay","it is friday",sep=",")
+paste0("yay","it is friday (squished)")
