@@ -1,0 +1,77 @@
+# Reading data into R 
+
+# the same SCZ GWAS from week 1
+# using base R
+# first - what do you plan to read into R? what file type is it? is it where you think it is?
+
+getwd()
+list.files()
+list.files("../")
+list.files("~/Downloads")
+
+# - how can i tell what the file is?
+# - how could i read in data if it was inside a sub-folder? somewhere else entirely?
+
+
+rm(dat)
+dat<-read.table("pgc.scz.2012-04/pgc.scz.full.2012-04.txt")
+
+# what is this?
+str(dat)
+class(dat)
+dim(dat)
+
+head(dat)
+
+
+# - what is wrong with this data frame?
+
+rm(dat)
+
+dat<-read.table("pgc.scz.2012-04/pgc.scz.full.2012-04.txt", header=T)
+head(dat)
+
+
+# using 'fread' function from package 'data.table'
+# how do we use packages that aren't in base R ?
+# see if it is already installed, by trying to load it into the environment
+
+require(data.table)
+# install.packages("data.table")
+
+require(data.table)
+library(data.table)
+
+dat_fread_ver<-fread("pgc.scz.2012-04/pgc.scz.full.2012-04.txt")
+
+str(dat_fread_ver)
+head(dat_fread_ver)
+
+dat_fread_ver<-data.frame(fread("pgc.scz.2012-04/pgc.scz.full.2012-04.txt"))
+
+str(dat_fread_ver)
+
+# nb 'require' and 'library' commands are functionally the same when you are just loading packages on your own machine, or interactively, they have some differences that become relevant in other situations
+# - what type of object does 'fread' create by default when reading in your file?
+
+# we can also use package 'readr' 
+# many other functions: read_delim etc
+
+dat_readr_ver<-read_table("pgc.scz.2012-04/pgc.scz.full.2012-04.txt",col_names=T)
+head(dat_readr_ver)
+str(dat_readr_ver)
+dat_readr_ver<-data.frame(read_table("pgc.scz.2012-04/pgc.scz.full.2012-04.txt"),col_names=T))
+head(dat_readr_ver)
+str(dat_readr_ver)
+
+# saving space - what if we dont want to unzip, to read into R?
+
+dat_unzip_ver <- data.frame(fread(cmd = 'unzip -pa pgc.scz.2012-04/pgc.scz.2012-04.zip pgc.scz.full.2012-04.txt', header="auto"))
+
+head(dat_unzip_ver)
+
+# fixing the columns
+
+unlist(strsplit(colnames(dat_unzip_ver),"[.]"))
+
+colnames(dat_unzip_ver)<-unlist(strsplit(colnames(dat_unzip_ver),"[.]"))[1:11]
